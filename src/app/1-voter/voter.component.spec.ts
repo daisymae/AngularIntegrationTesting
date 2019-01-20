@@ -45,4 +45,14 @@ describe('VoterComponent', () => {
     expect(el.innerText).toContain('21'); // this fails because we set the properties, but the DOM is not updated, because Angular is not running changeDetection
     // this is fixed with the addition of the call to detectChanges()
   })
+
+  it('should hightlight the upvote button if I have upvoted', () => {
+    component.myVote = 1;
+    fixture.detectChanges();
+
+    let de = fixture.debugElement.query(By.css('.glyphicon-menu-up'));
+
+    expect(de.classes['highlighted']).toBeTruthy();
+  })
+  
 });
