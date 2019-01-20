@@ -10,7 +10,7 @@ describe('VoterComponent', () => {
     // in integration tests, do not 'new' a component, instead as Angular to create for you
     // testingModule set up like NgModule
     TestBed.configureTestingModule({
-      declarations: [ VoterComponent ]
+      declarations: [VoterComponent]
     });
 
     // returns ComponentFixture<T>
@@ -54,5 +54,12 @@ describe('VoterComponent', () => {
 
     expect(de.classes['highlighted']).toBeTruthy();
   })
-  
+
+  it('should increase total votes when I click the upvote button', () => {
+    let button = fixture.debugElement.query(By.css('.glyphicon-menu-up'));
+    button.triggerEventHandler('click', null);
+
+    expect(component.totalVotes).toBe(1);
+  })
+
 });
