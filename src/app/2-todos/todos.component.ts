@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from './todo.service'
+import { pipe } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-todos',
@@ -13,7 +15,7 @@ export class TodosComponent implements OnInit {
   constructor(private service: TodoService) {}
 
   ngOnInit() { 
-    this.service.getTodos().subscribe(t => this.todos = t);
+    this.service.getTodos().pipe(map(t => this.todos = t)).subscribe();
   }
 
   add() { 
