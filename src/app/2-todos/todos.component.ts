@@ -10,15 +10,21 @@ import { map } from 'rxjs/operators';
 })
 export class TodosComponent implements OnInit {
   todos: any[] = [];
-  message; 
+  message;
 
-  constructor(private service: TodoService) {}
+  constructor(private service: TodoService) { }
 
-  ngOnInit() { 
-    this.service.getTodos().pipe(map(t => this.todos = t)).subscribe();
+  ngOnInit() {
+    // this.service.getTodos().pipe(map(t => this.todos = t)).subscribe();
+
+    // modify to use getTodosPromise to show how to test async code
+    this.service.getTodosPromise().then(t => {
+      console.log('THEN WAS CALLED');
+      this.todos = t;
+    })
   }
 
-  add() { 
+  add() {
     var newTodo = { title: '... ' };
     this.service.add(newTodo).subscribe(
       t => this.todos.push(t),
@@ -28,5 +34,5 @@ export class TodosComponent implements OnInit {
   delete(id) {
     if (confirm('Are you sure?'))
       this.service.delete(id).subscribe();
-  } 
+  }
 }
